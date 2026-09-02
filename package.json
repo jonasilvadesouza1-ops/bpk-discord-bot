@@ -1,9 +1,17 @@
 {
   "name": "bpk-discord-bot",
   "version": "1.0.0",
-  "description": "Bot Discord do Brasil Play King RPG com API para ponte SA-MP",
-  "main": "src/index.js",
-  "scripts": {"start": "node src/index.js"},
-  "engines": {"node": ">=18"},
-  "dependencies": {"discord.js": "^14.0.0", "express": "^4.21.2"}
+  "description": "Bot Discord do Brasil Play King RPG",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "discord.js": "^14.0.0",
+    "express": "^4.21.2",
+    "dotenv": "^16.4.7"
+  }
 }
