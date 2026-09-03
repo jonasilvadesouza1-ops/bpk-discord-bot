@@ -10,6 +10,7 @@ const {
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 3000;
 const TOKEN = process.env.DISCORD_TOKEN;
@@ -31,7 +32,9 @@ const client = new Client({
 
 function authorized(req) {
   const auth = req.headers.authorization || "";
-  return auth === `Bearer ${API_SECRET}`;
+  const bodySecret = String(req.body.secret || "").trim();
+  const querySecret = String(req.query.secret || "").trim();
+  return auth === `Bearer ${API_SECRET}` || bodySecret === API_SECRET || querySecret === API_SECRET;
 }
 
 async function getGuild() {
@@ -105,12 +108,7 @@ app.post("/vincular", async (req, res) => {
       await member.roles.add(role, "Vinculacao de conta SA-MP");
     }
 
-    return res.json({
-      ok: true,
-      message: "Cargo Membro aplicado.",
-      discordId,
-      roleId: role.id
-    });
+    return res.status(200).send("OK");
   } catch (error) {
     console.error("VINCULAR:", error);
     return res.status(500).json({
